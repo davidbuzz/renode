@@ -2,7 +2,7 @@
 
 # elf:file /home/buzz2/ardupilot/build/CubeBlack/
 #file /home/buzz2/ardupilot/build/CubeBlack/bin/arducopter
-file ./arducopter.cubeblack.debug.elf
+#file ./arducopter.cubeblack.debug.elf
 
 target extended-remote localhost:3333
 

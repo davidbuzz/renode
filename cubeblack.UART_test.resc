@@ -8,7 +8,8 @@ machine LoadPlatformDescription @platforms/boards/stm32f4_discovery-kit.repl
 :: using "platforms/cpus/stm32f4.repl"
 
 cpu PerformanceInMips 125
-$bin?=UART_test.elf
+: this is a .elf, it just doesn't have an extension.
+$bin?=UART_test
 
 : we use that macro to reload our elf file every time, so we do not have to do it manually between resets. 
 : This also guarantees that the latest elf file is picked up and allows us to iterate on code quickly.
@@ -21,6 +22,8 @@ runMacro $reset
 
 sysbus LoadELF $bin
 
+machine LoadPlatformDescription @add-ccm.repl
+
 # note the 's' in this, its uSart in this case..
 showAnalyzer sysbus.usart1
 showAnalyzer sysbus.usart2
@@ -28,8 +31,7 @@ showAnalyzer sysbus.usart3
 showAnalyzer sysbus.uart4
 showAnalyzer sysbus.uart5
 
-:run it - this is a comment
-start
+
 
 :pause
 
@@ -48,3 +50,6 @@ sysbus.cpu LogFunctionNames True
 machine StartGdbServer 3333
 
 :[ start arm-none-eabi-gdb or gdb-multiarch and use port 333 as well as per .gdbinit in this folder]
+
+:run it , last - this is a comment
+start

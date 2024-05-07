@@ -1,0 +1,25 @@
+using "./stm32f4.repl"
+
+ltdc: Video.STM32LTDC @ sysbus 0x40016800
+    -> nvic@88
+
+memoryBank1: Memory.MappedMemory @ sysbus 0xC0000000
+    size: 0x1000000
+
+// 0xE0000000  "Cortex-M4 internal peripherals"  we map first 8k, as we know reads get done at 0xE0001000/0xE0001004
+m4internal: Memory.MappedMemory @ sysbus 0xE0000000
+    size: 0x2000
+
+// USB OTG  - 0x5000 0000 - 0x5003 FFFF  "USB OTG FS" Peripheal in 427 and 429 = 16K, so 0x3FFFF, which rounds up to nearest 32 as... 0x40000
+otg: Memory.MappedMemory @ sysbus 0x50000000
+    size: 0x4000 
+
+// ccm 0x10000000 - 0x1000FFFF = 64KB data SRAM = so 0xFFFF, which rounds up to nearest 32 as 0x10000
+ccm: Memory.MappedMemory @ sysbus 0x10000000
+    size: 0x10000
+
+sysbus:
+    init:
+        ApplySVD @https://dl.antmicro.com/projects/renode/svd/STM32F429x.svd.gz
+        //Tag <0x50000000, 0x5003FFFF> "USB_OTG_FS"
+

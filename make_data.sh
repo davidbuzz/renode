@@ -14,3 +14,6 @@ echo please close the main renode window after 20 seconds, repeat 4 times
 # this now has ccm, even tho its not in the name
 ./renode cubeblack.UART_test.resc 2>&1 | grep -v 'Entering function memset' | perl -pe 's/\d\d:\d\d:\d\d.\d\d\d\d //g' > boot.cubeblack.UART_test.ccm.log
 
+
+# after 429 tweaks.
+./renode cubeblack.stm32f429.A.ccm.resc 2>&1 | grep -v 'Entering function memset' | perl -pe 's/\d\d:\d\d:\d\d.\d\d\d\d //g' > boot.cubeblack.stm32f429.ccm.A.log
